@@ -78,7 +78,7 @@ def store_video(video, max_len, drag_batch, kps, save_dir, length=512):
         os.makedirs(save_dir)
     original_path = os.path.join(save_dir, 'original.mp4')
 
-    io.write_video(original_path, preview_frames, fps=kps)
+    io.write_video(original_path, preview_frames, fps=int(round(float(kps))))
     
     return original_path, original_path, None, None, start_frame, end_frame, deepcopy(start_frame), deepcopy(end_frame), deepcopy(start_frame), fps
 # once user upload an image, the original image is stored in `original_image`
@@ -440,6 +440,6 @@ def run_drag(original_video,
     processed_video = np.concatenate(processed_videos, axis=1)
     processed_video = rearrange(processed_video, "c f h w -> f h w c")
     # print(f"processed videos shape: {processed_video.shape}")
-    io.write_video(os.path.join(save_dir, 'output.mp4'), processed_video, fps=kps)
+    io.write_video(os.path.join(save_dir, 'output.mp4'), processed_video, fps=int(round(float(kps))))
 
     return os.path.join(save_dir, 'output.mp4')
